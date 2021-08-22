@@ -2,11 +2,15 @@
 * StrSwap2
 *   Replaces delimited substrings in cString with elements in hSwap hash.
 *   Substrings are demited with #{}
+* Author:
+*   Sergio Lima
+* Last update:
+*   Aug, 2021
 * Example:
-*   hNewValues := {"first" => "is", "second" => "wonderful"}
+*   hNewValues := {"first" => "is", "second" => "awesome"}
 *   ? StrSwap2( "This function #{is super} #{cool}!!!", aNewValues )
 *   // results
-*   // This function is wonderful!!!
+*   // This function is awesome!!!
 * params:
 *   cString     <expC> - String with data to be changed
 *   hSwap       <expH> - Hash with data to change cString
@@ -14,15 +18,13 @@
 *   expC        cString changed
 *****************************************************************************
 FUNCTION StrSwap2( cString, hSwap )
-//LOCAL aFound := {}
-LOCAL cDemitedSubString := NIL, cFirstHashValue := NIL
 LOCAL cRegExpFindDelimiter := HB_RegexComp( "\#\{(.*?)\}" )
+LOCAL lFewParams := (PCount() < 2)
+LOCAL cFirstParamType := ValType(cString), cSecParamType := ValType(hSwap)
+LOCAL cDemitedSubString := NIL, cFirstHashValue := NIL
 
-    IF PCount() < 2
-        RETURN NIL
-    ENDIF
-
-    IF !(ValType(cString) == "C" .AND. ValType(hSwap) == "H")
+    IF lFewParams .OR. ;
+       !(cFirstParamType == "C" .AND. cSecParamType == "H")
         RETURN NIL
     ENDIF
 
@@ -31,60 +33,8 @@ LOCAL cRegExpFindDelimiter := HB_RegexComp( "\#\{(.*?)\}" )
         RETURN cString
     ENDIF
 
-    /*cHashKey := aFound[2]
-    IF !hb_HHasKey( hSwap, cHashKey )
-        RETURN cString
-    ENDIF*/
-
-    /*? "==="
-    //? hb_HValueAt( hSwap, 1)
-    //? hb_HKeyAt( hSwap, 1)
-    aFound := HB_Regex( cRegExpFindDelimiter, cString )
-    ? aFound[1]
-    ? aFound[2]
-    ? hSwap[ aFound[2] ]
-    cString := StrTran(cString, aFound[1], hSwap[aFound[2]])
-    ? cString
-    ? "---"
-    aFound := HB_Regex( cRegExpFindDelimiter, cString )
-    cString := StrTran(cString, aFound[1], hSwap[aFound[2]])
-    ? cString
-    ? "===="*/
-
-    /*cDemitedSubString := aFound[1]
-    cHashKey := aFound[2]
-    cNewValue := hSwap[cHashKey]*/
-
-    /*? "-----"
-    ? cDemitedSubString
-    ? cHashKey
-    ? cNewValue*/
-
-    //hb_HDelAt( <hTable>, <nPosition> ) -> <hTable>
-
-    //? "======="
-    //? "#{" + hb_HKeyAt( hSwap, 1) + "}"
-    //? hb_HValueAt( hSwap, 1)
-
     cDemitedSubString := "#{" + hb_HKeyAt( hSwap, 1) + "}"
     cFirstHashValue := hb_HValueAt( hSwap, 1)
 
     cString := StrTran(cString, cDemitedSubString, cFirstHashValue)
-
-    //? cString
-
-    //hSwap := hb_HDelAt( hSwap, 1 )
-
-    /*
-    cHashKey := aFound[2]
-    IF hb_HHasKey( hSwap, cHashKey )
-        cDemitedSubString := aFound[1]
-        cNewValue := hSwap[cHashKey]
-        cString := StrTran(cString, cDemitedSubString, cNewValue)  
-    ENDIF 
-    hb_HDel( hSwap, cHashKey )
-  */
-
 RETURN StrSwap2(cString, hb_HDelAt( hSwap, 1 ))
-//RETURN NIL
-

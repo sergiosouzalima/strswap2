@@ -49,12 +49,11 @@ FUNCTION Main()
     test_when_two_items_in_update_sql_is_passed ( ;
         "UPDATE CLIENTE SET " +;
         "NOMECLI = '#{NOMECLI}', ENDERECO = '#{ENDERECO}', " +;
-        "CEP = '#{CEP}', CIDADE = '#{CIDADE}', ESTADO = '#{ESTADO}', " +;
+        "ESTADO = '#{ESTADO}', " +;
         "ULTICOMPRA = '#{ULTICOMPRA}', SITUACAO = '#{SITUACAO}' "+;
         "WHERE CODCLI = #{CODCLI};", ;
         { "CODCLI" => "10", "SITUACAO" => "OK"} ;
     )
-
 RETURN .T.
 
 STATIC FUNCTION test_when_no_params_given()
@@ -332,7 +331,7 @@ STATIC FUNCTION test_when_two_items_in_update_sql_is_passed(cString, hSwap)
     LOCAL xExpected := ;
         "UPDATE CLIENTE SET " +;
         "NOMECLI = '#{NOMECLI}', ENDERECO = '#{ENDERECO}', " +;
-        "CEP = '#{CEP}', CIDADE = '#{CIDADE}', ESTADO = '#{ESTADO}', " +;
+        "ESTADO = '#{ESTADO}', " +;
         "ULTICOMPRA = '#{ULTICOMPRA}', SITUACAO = 'OK' "+;
         "WHERE CODCLI = 10;"
        
