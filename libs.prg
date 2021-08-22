@@ -14,8 +14,8 @@
 *   expC        cString changed
 *****************************************************************************
 FUNCTION StrSwap2( cString, hSwap )
-LOCAL aFound := {}
-LOCAL cDemitedSubString := NIL, cHashKey := NIL, cNewValue := NIL
+//LOCAL aFound := {}
+LOCAL cDemitedSubString := NIL, cFirstHashValue := NIL
 LOCAL cRegExpFindDelimiter := HB_RegexComp( "\#\{(.*?)\}" )
 
     IF PCount() < 2
@@ -27,7 +27,7 @@ LOCAL cRegExpFindDelimiter := HB_RegexComp( "\#\{(.*?)\}" )
     ENDIF
 
     if Empty(hSwap) .OR. ;
-       Empty( aFound := HB_Regex( cRegExpFindDelimiter, cString ) )
+       Empty( HB_Regex( cRegExpFindDelimiter, cString ) )
         RETURN cString
     ENDIF
 
@@ -66,11 +66,14 @@ LOCAL cRegExpFindDelimiter := HB_RegexComp( "\#\{(.*?)\}" )
     //? "#{" + hb_HKeyAt( hSwap, 1) + "}"
     //? hb_HValueAt( hSwap, 1)
 
-    cString := StrTran(cString, "#{" + hb_HKeyAt( hSwap, 1) + "}", hb_HValueAt( hSwap, 1))
+    cDemitedSubString := "#{" + hb_HKeyAt( hSwap, 1) + "}"
+    cFirstHashValue := hb_HValueAt( hSwap, 1)
+
+    cString := StrTran(cString, cDemitedSubString, cFirstHashValue)
 
     //? cString
 
-    hSwap := hb_HDelAt( hSwap, 1 )
+    //hSwap := hb_HDelAt( hSwap, 1 )
 
     /*
     cHashKey := aFound[2]
@@ -82,6 +85,6 @@ LOCAL cRegExpFindDelimiter := HB_RegexComp( "\#\{(.*?)\}" )
     hb_HDel( hSwap, cHashKey )
   */
 
-RETURN StrSwap2(cString, hSwap)
+RETURN StrSwap2(cString, hb_HDelAt( hSwap, 1 ))
 //RETURN NIL
 

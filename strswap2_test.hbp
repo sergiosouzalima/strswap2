@@ -1,14 +1,14 @@
 #
-# $Id: strswap_test2.hbp
+# $Id: strswap2_test.hbp
 #
 
 -w2
 -gc3
--ostrswap_test2
+-ostrswap2_test
 {linux}-ldl
 -lpthread
 
-strswap_test2.prg
+strswap2_test.prg
 libs.prg
 
 # Special parameters for LINUX/GTK

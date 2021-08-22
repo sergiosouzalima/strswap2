@@ -40,20 +40,11 @@ FUNCTION Main()
         "#{Hello} #{everyone}, #{world}!!!", ;
         {"first" => "pandemic world"} )
 
-    /*test_when_word_to_swap_repeats( ;
-        "Hello#{.} What a worderful world#{.}", ;
-        "!!!" )
-
-    test_when_word_to_swap_repeats_and_is_array( ;
-        "Hello#{.} What a worderful world#{.}", ;
-        {"!!!"} )
-
     test_when_sql_query_is_passed ( ;
         "SELECT #{COL1}, #{COL0} FROM TCUSTOMER " + ;
         "WHERE ID = '#{ID}'", ;
-        {"Name", "Surname", "1234"} ;
+        {"COL0" => "Surname", "COL1" => "Name", "ID" => "1234"} ;
     )
-    */
 RETURN .T.
 
 STATIC FUNCTION test_when_no_params_given()
@@ -309,7 +300,7 @@ RETURN .T.
 STATIC FUNCTION test_when_sql_query_is_passed(cString, hSwap)
 LOCAL xResult, cPreviousColor := SetColor()
 LOCAL xExpected := ;
-    "SELECT Name, Surname FROM TCUSTOMER WHERE ID = '1234'"
+    "SELECT Name, Surname FROM TCUSTOMER WHERE ID = '1234x'"
    
     xResult := StrSwap2(cString, hSwap)
     ? ProcName()
