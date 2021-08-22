@@ -1,0 +1,18 @@
+#
+# $Id: strswap_test2.hbp
+#
+
+-w2
+-gc3
+-ostrswap_test2
+{linux}-ldl
+-lpthread
+
+strswap_test2.prg
+libs.prg
+
+# Special parameters for LINUX/GTK
+{linux}-lm
+{linux}-static
+{linux}-d__LINUX__
+{linux}-d__GTK__
