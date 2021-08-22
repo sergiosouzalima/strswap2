@@ -40,11 +40,21 @@ FUNCTION Main()
         "#{Hello} #{everyone}, #{world}!!!", ;
         {"first" => "pandemic world"} )
 
-    test_when_sql_query_is_passed ( ;
+    test_when_query_sql_is_passed ( ;
         "SELECT #{COL1}, #{COL0} FROM TCUSTOMER " + ;
         "WHERE ID = '#{ID}'", ;
         {"COL0" => "Surname", "COL1" => "Name", "ID" => "1234"} ;
     )
+
+    test_when_two_items_in_update_sql_is_passed ( ;
+        "UPDATE CLIENTE SET " +;
+        "NOMECLI = '#{NOMECLI}', ENDERECO = '#{ENDERECO}', " +;
+        "CEP = '#{CEP}', CIDADE = '#{CIDADE}', ESTADO = '#{ESTADO}', " +;
+        "ULTICOMPRA = '#{ULTICOMPRA}', SITUACAO = '#{SITUACAO}' "+;
+        "WHERE CODCLI = #{CODCLI};", ;
+        { "CODCLI" => "10", "SITUACAO" => "OK"} ;
+    )
+
 RETURN .T.
 
 STATIC FUNCTION test_when_no_params_given()
@@ -297,11 +307,35 @@ LOCAL xExpected := ;
     SetColor(cPreviousColor)
 RETURN .T.
 
-STATIC FUNCTION test_when_sql_query_is_passed(cString, hSwap)
+STATIC FUNCTION test_when_query_sql_is_passed(cString, hSwap)
 LOCAL xResult, cPreviousColor := SetColor()
 LOCAL xExpected := ;
-    "SELECT Name, Surname FROM TCUSTOMER WHERE ID = '1234x'"
+    "SELECT Name, Surname FROM TCUSTOMER WHERE ID = '1234'"
    
+    xResult := StrSwap2(cString, hSwap)
+    ? ProcName()
+    ? "Should result "
+    ?? xExpected
+    IF (xResult == xExpected)
+        SetColor( "G+/N" )
+        ? "ok"
+    ELSE
+        SetColor( "R+/N" )
+        ? "but results "
+        ?? xResult
+    ENDIF
+    SetColor(cPreviousColor)
+RETURN .T.
+
+STATIC FUNCTION test_when_two_items_in_update_sql_is_passed(cString, hSwap)
+    LOCAL xResult, cPreviousColor := SetColor()
+    LOCAL xExpected := ;
+        "UPDATE CLIENTE SET " +;
+        "NOMECLI = '#{NOMECLI}', ENDERECO = '#{ENDERECO}', " +;
+        "CEP = '#{CEP}', CIDADE = '#{CIDADE}', ESTADO = '#{ESTADO}', " +;
+        "ULTICOMPRA = '#{ULTICOMPRA}', SITUACAO = 'OK' "+;
+        "WHERE CODCLI = 10;"
+       
     xResult := StrSwap2(cString, hSwap)
     ? ProcName()
     ? "Should result "
