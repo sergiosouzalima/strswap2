@@ -7,7 +7,7 @@
 * Last update:
 *   Aug, 2021
 * Example:
-*   hNewValues := {"first" => "is", "second" => "awesome"}
+*   hNewValues := {"is super" => "is", "cool" => "awesome"}
 *   ? StrSwap2( "This function #{is super} #{cool}!!!", aNewValues )
 *   // results
 *   // This function is awesome!!!

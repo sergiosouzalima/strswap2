@@ -24,6 +24,10 @@ FUNCTION Main()
         "#{Hello}, #{world}!!!", ;
         {"world" => "pandemic world", "Hello" => "Hi"} )
 
+    test_when_params_ok_with_space_in_param( ;
+        "This function #{is super} #{cool}!!!", ;
+        {"is super" => "is", "cool" => "awesome"} )            
+
     test_when_first_param_ok_with_string( ;
         "Hello, #{world}!!!", ;
         "wonderful world" )
@@ -198,6 +202,25 @@ RETURN .T.
 STATIC FUNCTION test_when_params_ok_with_hash(cString, hSwap)
 LOCAL xResult, cPreviousColor := SetColor()
 LOCAL xExpected := "Hi, pandemic world!!!"
+    
+    xResult := StrSwap2( cString, hSwap )
+    ? ProcName()
+    ? "Should result " 
+    ?? xExpected
+    IF (xResult == xExpected)
+        SetColor( "G+/N" )
+        ? "ok"
+    ELSE
+        SetColor( "R+/N" )
+        ? "but results "
+        ?? xResult
+    ENDIF
+    SetColor(cPreviousColor)
+RETURN .T.      
+
+STATIC FUNCTION test_when_params_ok_with_space_in_param(cString, hSwap)
+LOCAL xResult, cPreviousColor := SetColor()
+LOCAL xExpected := "This function is awesome!!!"
     
     xResult := StrSwap2( cString, hSwap )
     ? ProcName()
