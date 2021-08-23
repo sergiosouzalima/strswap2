@@ -32,6 +32,10 @@ FUNCTION Main()
         "#{Hello}, #{world}!!!", ;
         {"world" => "pandemic world", "Hello" => "Hi", "Extra" => "Element"} )
 
+    test_when_hash_element_refers_two_delimited_words( ;
+        "#{Hello}, #{world}, #{Hello}!!!", ;
+        {"world" => "pandemic world", "Hello" => "Hi"} )        
+
     test_when_params_ok_and_a_few_hash_elements( ;
         "#{Hello} #{everyone}, #{world}!!!", ;
         {"world" => "pandemic world"} )
@@ -248,6 +252,26 @@ LOCAL xExpected := "Hi, pandemic world!!!"
     SetColor(cPreviousColor)
 RETURN .T.
 
+STATIC FUNCTION test_when_hash_element_refers_two_delimited_words(cString, hSwap)
+LOCAL xResult, cPreviousColor := SetColor()
+LOCAL xExpected := "Hi, pandemic world, Hi!!!"
+    
+    xResult := StrSwap2( cString, hSwap )
+    ? ProcName()
+    ? "Should result " 
+    ?? xExpected
+    IF (xResult == xExpected)
+        SetColor( "G+/N" )
+        ? "ok"
+    ELSE
+        SetColor( "R+/N" )
+        ? "but results "
+        ?? xResult
+    ENDIF
+    SetColor(cPreviousColor)
+RETURN .T.
+
+    
 STATIC FUNCTION test_when_params_ok_and_a_few_hash_elements(cString, hSwap)
 LOCAL xResult, cPreviousColor := SetColor()
 LOCAL xExpected := "#{Hello} #{everyone}, pandemic world!!!"
