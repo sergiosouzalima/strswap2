@@ -23,11 +23,6 @@ LOCAL lErrorNumberParams := (PCount() < 1 .OR. PCount() > 2)
 LOCAL cFirstParamType := ValType(cString), cSecParamType := ValType(hSwap)
 LOCAL cDemitedSubString := NIL, cFirstHashValue := NIL
 
-    /*IF lFewParams .OR. ;
-       !(cFirstParamType == "C" .AND. cSecParamType == "H")
-        RETURN NIL
-    ENDIF*/
-
     IF lErrorNumberParams .OR. !(cFirstParamType == "C")
          RETURN NIL
     ENDIF
