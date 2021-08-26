@@ -1,9 +1,9 @@
 FUNCTION Main()
     test_when_no_params_given()
 
-    test_when_one_empty_param_given( "" )
+    test_when_one_empty_param_given( NIL )
 
-    test_when_two_empty_params_given( "", "" )
+    test_when_two_empty_params_given( NIL, NIL )
 
     test_when_one_param_given( ;
         "Hello, world!!!" )
@@ -85,7 +85,7 @@ RETURN .T.
 
 STATIC FUNCTION test_when_one_empty_param_given( cString )
 LOCAL xResult, cPreviousColor := SetColor()
-LOCAL xExpected := NIL
+LOCAL xExpected := cString
     
     xResult := StrSwap2( cString )
     ? ProcName()
@@ -104,7 +104,7 @@ RETURN .T.
 
 STATIC FUNCTION test_when_two_empty_params_given( cString, hSwap )
 LOCAL xResult, cPreviousColor := SetColor()
-LOCAL xExpected := NIL
+LOCAL xExpected := cString
     
     xResult := StrSwap2( cString, hSwap )
     ? ProcName()
@@ -123,7 +123,7 @@ RETURN .T.
 
 STATIC FUNCTION test_when_one_param_given( cString )
 LOCAL xResult, cPreviousColor := SetColor()
-LOCAL xExpected := NIL
+LOCAL xExpected := cString
     
     xResult := StrSwap2( cString )
     ? ProcName()
@@ -182,7 +182,7 @@ RETURN .T.
 
 STATIC FUNCTION test_when_first_param_is_ok_second_param_is_empty_hash(cString, hSwap)
 LOCAL xResult, cPreviousColor := SetColor()
-LOCAL xExpected := NIL
+LOCAL xExpected := cString
     
     xResult := StrSwap2( cString, hSwap )
     ? ProcName()
@@ -239,7 +239,7 @@ RETURN .T.
 
 STATIC FUNCTION test_when_first_param_ok_with_string(cString, hSwap)
 LOCAL xResult, cPreviousColor := SetColor()
-LOCAL xExpected := NIL
+LOCAL xExpected := cString
     
     xResult := StrSwap2( cString )
     ? ProcName()
