@@ -32,6 +32,10 @@ FUNCTION Main()
         "Hello, #{world}!!!", ;
         "wonderful world" )
 
+    test_when_first_param_ok_with_number( ;
+        "Hello, #{world}!!!", ;
+        123 )        
+
     test_when_params_ok_and_extra_element_hash( ;
         "#{Hello}, #{world}!!!", ;
         {"world" => "pandemic world", "Hello" => "Hi", "Extra" => "Element"} )
@@ -237,11 +241,30 @@ LOCAL xExpected := "This function is awesome!!!"
     SetColor(cPreviousColor)
 RETURN .T.
 
-STATIC FUNCTION test_when_first_param_ok_with_string(cString, hSwap)
+STATIC FUNCTION test_when_first_param_ok_with_string(cString, xSwap)
 LOCAL xResult, cPreviousColor := SetColor()
 LOCAL xExpected := cString
     
-    xResult := StrSwap2( cString )
+    xResult := StrSwap2( cString, xSwap )
+    ? ProcName()
+    ? "Should result " 
+    ?? xExpected
+    IF (xResult == xExpected)
+        SetColor( "G+/N" )
+        ? "ok"
+    ELSE
+        SetColor( "R+/N" )
+        ? "but results "
+        ?? xResult
+    ENDIF
+    SetColor(cPreviousColor)
+RETURN .T.
+  
+STATIC FUNCTION test_when_first_param_ok_with_number(cString, xSwap)
+LOCAL xResult, cPreviousColor := SetColor()
+LOCAL xExpected := cString
+    
+    xResult := StrSwap2( cString, xSwap )
     ? ProcName()
     ? "Should result " 
     ?? xExpected

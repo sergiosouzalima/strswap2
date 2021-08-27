@@ -19,15 +19,16 @@
 *****************************************************************************
 FUNCTION StrSwap2( cString, hSwap )
 LOCAL cRegExpFindDelimiter := HB_RegexComp( "\#\{(.*?)\}" )
-LOCAL lErrorNumberParams := (PCount() < 1 .OR. PCount() > 2)
-LOCAL cFirstParamType := ValType(cString), cSecParamType := ValType(hSwap)
+LOCAL lInvalidParamNumber := (PCount() < 1 .OR. PCount() > 2)
+LOCAL lFirstParamTypeOk := (ValType(hb_PValue(1)) == "C")
+LOCAL lSecParamTypeOk := (ValType(hb_PValue(2)) == "H")
 LOCAL cDemitedSubString := NIL, cFirstHashValue := NIL
 
-    IF lErrorNumberParams .OR. !(cFirstParamType == "C")
+    IF lInvalidParamNumber 
          RETURN NIL
     ENDIF
 
-    IF PCount() == 1
+    IF lFirstParamTypeOk .AND. !lSecParamTypeOk
         RETURN cString
     ENDIF
 
